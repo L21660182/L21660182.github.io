@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Formulario</title>
+    <style>
+        /* Estilos para el formulario */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 14px;
+        }
+        #mensajeError {
+            color: pink;
+            font-size: 14px;
+            display: none; /* El mensaje de error está oculto inicialmente */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Formulario de Registro</h1>
+
+    <!-- Formulario de registro con un campo de nombre -->
+    <form id="registroForm" onsubmit="return validarFormulario()">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre">
+        </div>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <!-- Etiqueta donde se mostrará el mensaje de error -->
+    <p id="mensajeError"></p>
+
+    <script>
+        // Función para validar el formulario
+        function validarFormulario() {
+            // Obtener el valor del campo de nombre
+            const nombre = document.getElementById("nombre").value;
+
+            // Variable que almacenará el mensaje de error
+            let noname = "";
+
+            // Validar si el campo de nombre está vacío
+            if (nombre.trim() === "") {
+                noname = "El campo de nombre no puede estar vacío.";
+                // Mostrar el mensaje de error en la etiqueta <p> con id "mensajeError"
+                document.getElementById("mensajeError").innerText = noname;
+                document.getElementById("mensajeError").style.display = "block"; // Mostrar el mensaje
+                return false; // Evitar el envío del formulario
+            } else {
+                // Ocultar el mensaje de error si el campo no está vacío
+                document.getElementById("mensajeError").style.display = "none";
+                return true; // Permitir el envío del formulario
+            }
+        }
+    </script>
+
+</body>
+</html>
