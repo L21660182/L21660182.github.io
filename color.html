@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Color de Fondo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #cambiarColor {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Haz clic para cambiar el color de fondo</h1>
+    <button id="cambiarColor">Cambiar color de fondo</button>
+
+    <script>
+        // Arreglo que contiene varios colores en formato hexadecimal
+        const colores = ["#FF5733", "#33FF57", "#3357FF", "#F3FF33", "#FF33A8", "#33FFF5", "#FFC300", "#DAF7A6"];
+
+        // Función que cambia el color de fondo al hacer clic
+        document.getElementById("cambiarColor").onclick = function() {
+            // Generar un índice aleatorio
+            let colorSeleccionado = "";
+
+            // Ciclo for para iterar sobre el arreglo de colores
+            for (let i = 0; i < colores.length; i++) {
+                // Selecciona un color aleatorio del arreglo
+                colorSeleccionado = colores[Math.floor(Math.random() * colores.length)];
+            }
+
+            // Cambiar el color de fondo del cuerpo del documento
+            document.body.style.backgroundColor = colorSeleccionado;
+        };
+    </script>
+
+</body>
+</html>
