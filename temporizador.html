@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporizador con setTimeout y setInterval</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #countdown {
+      font-size: 48px;
+      margin-top: 20px;
+    }
+
+    #message {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Temporizador con setTimeout y setInterval</h1>
+  <button onclick="startCountdown()">Iniciar Temporizador</button>
+  <div id="countdown">50</div> <!-- El contador comienza en 50 -->
+  <p id="message"></p>
+
+  <script>
+    let countdownValue = 50; // Valor inicial del contador ahora es 50
+    let countdownInterval;
+
+    // Función que inicia el temporizador con setInterval
+    function startCountdown() {
+      // Evitar múltiples intervalos si ya está corriendo
+      if (countdownInterval) return;
+
+      countdownInterval = setInterval(() => {
+        document.getElementById('countdown').innerText = countdownValue;
+
+        // Si el contador llega a 0
+        if (countdownValue === 0) {
+          clearInterval(countdownInterval); // Detener el intervalo
+          document.getElementById('countdown').innerText = '¡Tiempo Finalizado!';
+
+          // Usar setTimeout para mostrar un mensaje después de 3 segundos
+          setTimeout(() => {
+            document.getElementById('message').innerText = '¡El mensaje ha aparecido después de 3 segundos!';
+          }, 3000); // 3000 milisegundos = 3 segundos
+        }
+
+        countdownValue--; // Disminuir el contador cada segundo
+      }, 1000); // Ejecutar cada 1000 milisegundos (1 segundo)
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de Dos Números</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="submit"] {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Suma de Dos Números</h2>
+        <!-- Formulario para capturar dos números -->
+        <form id="sumaForm">
+            <!-- Primer número ingresado por el usuario, llamado churpia1 -->
+            <label for="churpia1">Primer número:</label>
+            <input type="number" id="churpia1" name="churpia1" required>
+
+            <!-- Segundo número ingresado por el usuario, llamado churpia2 -->
+            <label for="churpia2">Segundo número:</label>
+            <input type="number" id="churpia2" name="churpia2" required>
+
+            <!-- Botón para enviar el formulario y calcular la suma -->
+            <input type="submit" value="Calcular Suma">
+        </form>
+
+        <!-- Mostrar el resultado de la suma en este párrafo -->
+        <p id="caquita">Resultado: </p>
+    </div>
+
+    <script>
+        // Obtener el formulario y agregar un evento para manejar el envío
+        document.getElementById('sumaForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+            // Capturar el valor del primer número (churpia1)
+            let churpia1 = parseFloat(document.getElementById('churpia1').value);
+
+            // Capturar el valor del segundo número (churpia2)
+            let churpia2 = parseFloat(document.getElementById('churpia2').value);
+
+            // Calcular la suma de churpia1 y churpia2
+            let suma = churpia1 + churpia2;
+
+            // Mostrar el resultado (caquita) en el párrafo correspondiente
+            document.getElementById('caquita').textContent = "Resultado: " + suma;
+        });
+    </script>
+</body>
+</html>

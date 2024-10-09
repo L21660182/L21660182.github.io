@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambio de Imagen</title>
+  <style>
+    /* Estilos para centrar el contenido en la pantalla y estilizar la página */
+    body {
+      font-family: Arial, sans-serif; /* Fuente para el texto de la página */
+      display: flex; /* Hacemos que los elementos se alineen en el centro */
+      justify-content: center; /* Centra horizontalmente */
+      align-items: center; /* Centra verticalmente */
+      height: 100vh; /* Ocupa el 100% del alto de la ventana */
+      margin: 0; /* Elimina márgenes */
+      background-color: #f0f0f0; /* Color de fondo */
+    }
+
+    /* Contenedor que agrupa la imagen y el botón */
+    .container {
+      text-align: center; /* Centra el contenido dentro del contenedor */
+    }
+
+    /* Estilos para la imagen */
+    img {
+      max-width: 100%; /* La imagen no excederá el ancho del contenedor */
+      height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+      border-radius: 10px; /* Bordes redondeados para la imagen */
+      margin-bottom: 20px; /* Espacio debajo de la imagen */
+    }
+
+    /* Estilos para el botón */
+    button {
+      background-color: #4CAF50; /* Color de fondo verde */
+      color: white; /* Color de texto blanco */
+      border: none; /* Sin borde */
+      padding: 10px 20px; /* Espaciado dentro del botón */
+      font-size: 16px; /* Tamaño del texto */
+      cursor: pointer; /* Cambia el cursor al pasar por encima */
+      border-radius: 5px; /* Bordes redondeados */
+    }
+
+    /* Estilos del botón al pasar el cursor por encima */
+    button:hover {
+      background-color: #45a049; /* Cambia ligeramente el color cuando se pasa el ratón */
+    }
+  </style>
+</head>
+<body>
+  <!-- Contenedor para la imagen y el botón -->
+  <div class="container">
+    <!-- Imagen inicial que se mostrará en la página -->
+    <img id="image" 
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5NoRpZ6b5rjTAcB9a-6_cztduAwkmji4JVA&s" 
+         alt="Imagen Inicial" 
+         width="400"> <!-- El ancho de la imagen será de 400 píxeles -->
+    <br> <!-- Salto de línea entre la imagen y el botón -->
+    <!-- Botón que llamará a la función changeImage() cuando se haga clic -->
+    <button onclick="changeImage()">Cambiar Imagen</button>
+  </div>
+
+  <script>
+    // Variable que almacena el estado actual de la imagen (1 o 2)
+    let currentImage = 1;
+
+    // Función que cambia la imagen mostrada
+    function changeImage() {
+      // Obtener el elemento de la imagen usando su id
+      const imageElement = document.getElementById('image');
+      
+      // Alterna entre 1 y 2 para determinar cuál imagen mostrar
+      currentImage = (currentImage === 1) ? 2 : 1;
+      
+      // Cambia el atributo 'src' de la imagen según el valor de currentImage
+      imageElement.src = currentImage === 1 
+        ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5NoRpZ6b5rjTAcB9a-6_cztduAwkmji4JVA&s' 
+        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdifIEufyOi2hwsnY0PzakC9D11Jy1E2XUm2B6-qKPYehb_2yPxz2iZz2Arvj5CWarsU&usqp=CAU';
+    }
+  </script>
+</body>
+</html>
+
+
