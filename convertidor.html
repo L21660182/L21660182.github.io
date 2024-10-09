@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Unidades</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+        h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 25px;
+            position: relative;
+            animation: slideDown 1s ease;
+        }
+        h1::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: #007bff;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 5px;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+            text-align: left;
+            animation: fadeIn 1s ease 0.5s;
+            animation-fill-mode: both;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: bounceIn 1s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #007bff;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.8s;
+            animation-fill-mode: both;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convertidor de Unidades</h1>
+        <label for="valor">Valor a convertir:</label>
+        <input type="number" id="valor" placeholder="Ingresa el valor">
+
+        <label for="unidadEntrada">Unidad de entrada:</label>
+        <select id="unidadEntrada">
+            <option value="metros">Metros</option>
+            <option value="kilometros">Kilómetros</option>
+            <option value="millas">Millas</option>
+        </select>
+
+        <label for="unidadSalida">Unidad de salida:</label>
+        <select id="unidadSalida">
+            <option value="metros">Metros</option>
+            <option value="kilometros">Kilómetros</option>
+            <option value="millas">Millas</option>
+        </select>
+
+        <button onclick="convertir()">Convertir</button>
+        <h2 id="resultado"></h2>
+    </div>
+
+    <script>
+        function convertir() {
+            let valor = parseFloat(document.getElementById('valor').value);
+            let unidadEntrada = document.getElementById('unidadEntrada').value;
+            let unidadSalida = document.getElementById('unidadSalida').value;
+            let resultado = 0;
+
+            // Convertir primero a metros
+            switch (unidadEntrada) {
+                case 'metros':
+                    resultado = valor;
+                    break;
+                case 'kilometros':
+                    resultado = valor * 1000;
+                    break;
+                case 'millas':
+                    resultado = valor * 1609.34;
+                    break;
+            }
+
+            // Convertir de metros a la unidad de salida
+            switch (unidadSalida) {
+                case 'metros':
+                    resultado = resultado;
+                    break;
+                case 'kilometros':
+                    resultado = resultado / 1000;
+                    break;
+                case 'millas':
+                    resultado = resultado / 1609.34;
+                    break;
+            }
+
+            document.getElementById('resultado').textContent = `Resultado: ${resultado.toFixed(2)} ${unidadSalida}`;
+        }
+    </script>
+</body>
+</html>
+
+
