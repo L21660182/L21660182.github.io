@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de Palabras y Caracteres - Barbie Edition</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff99cc, #ffccff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            background: #ffe6f2;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(255, 0, 128, 0.2), 0 6px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 3px solid #ff66b2;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #ff33aa;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.5);
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 16px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ff66b2;
+            background: #ffe6f2;
+            color: #ff33aa;
+            box-shadow: inset 2px 2px 5px rgba(255, 182, 193, 0.4), inset -2px -2px 5px rgba(255, 105, 180, 0.4);
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus {
+            border-color: #ff33aa;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+        }
+        .contador {
+            margin-top: 20px;
+        }
+        .contador p {
+            font-size: 18px;
+            color: #ff33aa;
+            margin: 10px 0;
+        }
+        .contador span {
+            font-weight: bold;
+            color: #ff0066;
+        }
+        /* Animaciones glamorosas */
+        textarea, .contador p {
+            animation: popUp 0.5s ease-in-out;
+        }
+        @keyframes popUp {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Contador de Palabras y Caracteres</h1>
+        <textarea id="texto" placeholder="Escribe aquí tu texto..."></textarea>
+        <div class="contador">
+            <p>Palabras: <span id="numPalabras">0</span></p>
+            <p>Caracteres: <span id="numCaracteres">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('texto');
+        const numPalabras = document.getElementById('numPalabras');
+        const numCaracteres = document.getElementById('numCaracteres');
+
+        textarea.addEventListener('input', function() {
+            const texto = textarea.value.trim();
+            const palabras = texto.split(/\s+/).filter(function(palabra) {
+                return palabra.length > 0;
+            });
+            numPalabras.textContent = palabras.length;
+            numCaracteres.textContent = texto.length;
+        });
+    </script>
+
+</body>
+</html>
+
