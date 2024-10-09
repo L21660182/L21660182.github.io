@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Básica</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 340px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .calculator:hover {
+            transform: scale(1.05);
+        }
+
+        .display {
+            width: 100%;
+            height: 70px;
+            background-color: #222;
+            color: #ffffff;
+            text-align: right;
+            font-size: 2.5em;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .buttons button {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.5em;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons button:hover {
+            background-color: #d0d0d0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons .operator {
+            background-color: #ffb74d;
+            color: #ffffff;
+        }
+
+        .buttons .operator:hover {
+            background-color: #ffa726;
+        }
+
+        .buttons .equal {
+            background-color: #66bb6a;
+            color: #ffffff;
+            grid-column: span 2;
+        }
+
+        .buttons .equal:hover {
+            background-color: #43a047;
+        }
+
+        .buttons .clear {
+            background-color: #ef5350;
+            color: #ffffff;
+            grid-column: span 2;
+        }
+
+        .buttons .clear:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            <button class="operator" onclick="appendOperator('*')">*</button>
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button class="equal" onclick="calculate()">=</button>
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="appendDot()">.</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let isEvaluated = false;
+
+        const display = document.getElementById('display');
+
+        function appendNumber(number) {
+            if (isEvaluated) {
+                currentInput = '' + number;
+                isEvaluated = false;
+            } else {
+                currentInput += number;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(operator) {
+            if (isEvaluated) {
+                isEvaluated = false;
+            }
+            currentInput += ' ' + operator + ' ';
+            updateDisplay();
+        }
+
+        function appendDot() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                updateDisplay();
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            display.textContent = currentInput || '0';
+        }
+
+        function calculate() {
+            try {
+                currentInput = eval(currentInput).toString();
+                isEvaluated = true;
+                updateDisplay();
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
