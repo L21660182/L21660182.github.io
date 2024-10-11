@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Búsqueda en Tabla</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filtro de Búsqueda en una Tabla</h1>
+        <!-- Campo de búsqueda -->
+        <input type="text" id="searchInput" placeholder="Escribe algo para buscar..." onkeyup="filterTable()">
+        
+        <!-- Tabla con datos -->
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>País</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Carlos</td>
+                    <td>Pérez</td>
+                    <td>28</td>
+                    <td>España</td>
+                </tr>
+                <tr>
+                    <td>Laura</td>
+                    <td>Gómez</td>
+                    <td>32</td>
+                    <td>México</td>
+                </tr>
+                <tr>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>22</td>
+                    <td>Argentina</td>
+                </tr>
+                <tr>
+                    <td>Sofía</td>
+                    <td>López</td>
+                    <td>30</td>
+                    <td>Chile</td>
+                </tr>
+                <tr>
+                    <td>María</td>
+                    <td>Fernández</td>
+                    <td>25</td>
+                    <td>Colombia</td>
+                </tr>
+                <tr>
+                    <td>Pedro</td>
+                    <td>Vega</td>
+                    <td>35</td>
+                    <td>Perú</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Función para filtrar los datos de la tabla
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('dataTable');
+            const tr = table.getElementsByTagName('tr');
+
+            // Recorremos todas las filas de la tabla y ocultamos las que no coincidan
+            for (let i = 1; i < tr.length; i++) {  // Empezamos en 1 para saltar el encabezado
+                let found = false;
+                const td = tr[i].getElementsByTagName('td');
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j].innerHTML.toLowerCase().includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+                tr[i].style.display = found ? '' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>

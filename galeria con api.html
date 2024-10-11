@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f3f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .gallery-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 1200px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        #load-images-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            background-color: #ff7eb9;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 30px;
+        }
+        #load-images-btn:hover {
+            background-color: #ff65a3;
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .image-gallery img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <button id="load-images-btn">Cargar Imágenes</button>
+        <div id="image-gallery" class="image-gallery"></div>
+    </div>
+
+    <script>
+        const imageGallery = document.getElementById('image-gallery');
+        const loadImagesBtn = document.getElementById('load-images-btn');
+
+        const images = [
+            'https://i.pinimg.com/236x/f5/4a/3a/f54a3af8eb906282918188ecba741a98.jpg',
+            'https://i.pinimg.com/736x/f1/c2/a9/f1c2a9dd2b6ec0270f628a1979e8a180.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMwcuc6DN1ujys58gzPBdChztEFtnX6IMnRfhV-VgmRvxnUoxEoOPf6dsHA6eQhXXWm_U&usqp=CAU',
+            'https://i.pinimg.com/736x/28/33/d2/2833d2136191880582686821927c735c.jpg',
+            'https://i.pinimg.com/474x/6e/6f/68/6e6f68af82cf352eb58ec9df98378b53.jpg',
+            'https://i.pinimg.com/736x/c7/4e/10/c74e1083c1502351327dd0fa3bc6fe86.jpg',
+            'https://i.pinimg.com/236x/15/de/91/15de91769e48233230f94efa07b0f3e3.jpg',
+            'https://i.pinimg.com/736x/9c/d0/10/9cd01052463b51228ffcb59accd93341.jpg',
+            'https://i.pinimg.com/736x/91/1d/9c/911d9ccb9596c471d3e18c2ecf691b19.jpg',
+            'https://i.pinimg.com/236x/5c/48/8d/5c488d77ab3aef5f7e5882c635bd2926.jpg',
+            'https://e1.pxfuel.com/desktop-wallpaper/908/309/desktop-wallpaper-%E2%98%86pinterest-girl-aesthetic-pinterest-thumbnail.jpg',
+            'https://wallpapercave.com/wp/wp6152900.jpg',
+            'https://i.pinimg.com/736x/c9/f6/bb/c9f6bb8a841176ab0520f4f9553f8dc6.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmjzIE-RLDSs05ERvwwOqpAcSJWf1LpsEgdsYluApqBrtUX275Kn3o58vWPl1s8GM4sQ&usqp=CAU'
+        ];
+
+        function loadRandomImages() {
+            imageGallery.innerHTML = '';
+            
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                const imgElement = document.createElement('img');
+                imgElement.src = images[randomIndex];
+                imageGallery.appendChild(imgElement);
+            }
+        }
+
+        loadImagesBtn.addEventListener('click', loadRandomImages);
+    </script>
+</body>
+</html>
