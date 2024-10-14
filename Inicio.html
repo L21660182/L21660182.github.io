@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación con UX/UI</title>
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Menú de Navegación */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .nav-links a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: #fff;
+        }
+
+        /* Sección de inicio estilo blog/noticias */
+        .inicio {
+            padding: 100px 20px;
+            text-align: center;
+            opacity: 0; /* Para animar la aparición */
+            animation: fadeIn 1s forwards; /* Animación de aparición */
+            background-color: #ff6b6b; /* Fondo del título */
+            color: #fff; /* Color del texto */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .inicio h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff; /* Título en blanco */
+            transform: translateY(-20px); /* Para animar la aparición */
+            opacity: 0; /* Para animar la aparición */
+            animation: slideIn 1s forwards 0.5s; /* Animación de deslizamiento */
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0); /* Finaliza la animación en su posición original */
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .inicio p {
+            font-size: 1.2em;
+            color: #fff; /* Color del texto del párrafo */
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            text-align: left;
+            transform: translateY(20px); /* Para animar la aparición */
+            opacity: 0; /* Para animar la aparición */
+            animation: cardFadeIn 1s forwards; /* Animación de aparición de la tarjeta */
+            transition: transform 0.3s ease; /* Para el efecto de acercamiento */
+        }
+
+        @keyframes cardFadeIn {
+            to {
+                transform: translateY(0); /* Finaliza la animación en su posición original */
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .card img {
+            width: 100%; /* Las imágenes ocuparán todo el ancho de la tarjeta */
+            border-radius: 10px;
+            margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+            transition: transform 0.3s ease; /* Para el efecto de acercamiento */
+        }
+
+        .card img:hover {
+            transform: scale(1.1); /* Efecto de acercamiento */
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+        }
+
+        .hamburger .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #333;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                gap: 20px;
+            }
+
+            .mobile-menu.active {
+                right: 0;
+            }
+
+            .mobile-menu a {
+                font-size: 1.5em;
+                padding: 10px 20px;
+                border-radius: 30px;
+                transition: background 0.5s ease, color 0.5s ease;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menú de Navegación -->
+    <nav class="navbar">
+        <div class="logo" data-target="inicio">Inicio</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" data-target="inicio">Inicio</a></li>
+            <li><a href="#" data-target="galeria">Galería de Proyectos</a></li>
+            <li><a href="#" data-target="servicios">Servicios</a></li>
+            <li><a href="#" data-target="sobre-mi">Sobre Mí</a></li>
+            <li><a href="#" data-target="contacto">Contacto</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <!-- Sección de Inicio con enfoque en UX/UI -->
+    <section class="inicio" id="inicio">
+        <h1>UX/UI</h1>
+        <p>Explora los principales conceptos de experiencia de usuario y diseño de interfaces, aplicados en este proyecto para crear una navegación intuitiva, visualmente atractiva y accesible.</p>
+        
+        <div class="cards-container">
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Yi3Ff5EY0QiKaMLKb0q6zuPlAdcFDq6Row&s" alt="Diseño Responsivo">
+                <h2>Diseño Responsivo</h2>
+                <p>El diseño se adapta a cualquier dispositivo, garantizando una experiencia consistente en móviles, tablets y escritorios.</p>
+            </div>
+            <div class="card">
+                <img src="https://blog.ida.cl/wp-content/uploads/sites/5/2020/11/ida-DiaUsabilidad-blog-1024x735.png" alt="Usabilidad">
+                <h2>Usabilidad</h2>
+                <p>Principios de usabilidad aplicados para mejorar la navegación y facilitar el acceso a las distintas secciones del sitio.</p>
+            </div>
+            <div class="card">
+                <img src="https://media.licdn.com/dms/image/v2/D4D12AQEayPp-Z3t_pA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1700581995526?e=2147483647&v=beta&t=6eJVNG0fFeJ0_IIijB7_Y4ZGzlksFRVLzjRXS-81-lw" alt="Interactividad">
+                <h2>Interactividad</h2>
+                <p>Elementos interactivos que mejoran la experiencia del usuario, haciendo que la navegación sea más dinámica y atractiva.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Manejo del menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Cambio de contenido al hacer clic en enlaces
+        const links = document.querySelectorAll('.nav-links a, .mobile-menu a');
+        const sections = document.querySelectorAll('section');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+
+                sections.forEach(section => {
+                    section.style.display = 'none'; // Ocultar todas las secciones
+                });
+
+                targetSection.style.display = 'block'; // Mostrar la sección seleccionada
+                window.scrollTo(0, 0); // Ir a la parte superior de la página
+            });
+        });
+    </script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación con UX/UI</title>
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Menú de Navegación */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .nav-links a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: #fff;
+        }
+
+        /* Sección de inicio estilo blog/noticias */
+        .inicio {
+            padding: 100px 20px;
+            text-align: center;
+            opacity: 0; /* Para animar la aparición */
+            animation: fadeIn 1s forwards; /* Animación de aparición */
+            background-color: #ff6b6b; /* Fondo del título */
+            color: #fff; /* Color del texto */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .inicio h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff; /* Título en blanco */
+            transform: translateY(-20px); /* Para animar la aparición */
+            opacity: 0; /* Para animar la aparición */
+            animation: slideIn 1s forwards 0.5s; /* Animación de deslizamiento */
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0); /* Finaliza la animación en su posición original */
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .inicio p {
+            font-size: 1.2em;
+            color: #fff; /* Color del texto del párrafo */
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            text-align: left;
+            transform: translateY(20px); /* Para animar la aparición */
+            opacity: 0; /* Para animar la aparición */
+            animation: cardFadeIn 1s forwards; /* Animación de aparición de la tarjeta */
+            transition: transform 0.3s ease; /* Para el efecto de acercamiento */
+        }
+
+        @keyframes cardFadeIn {
+            to {
+                transform: translateY(0); /* Finaliza la animación en su posición original */
+                opacity: 1; /* Finaliza la animación en opacidad 1 */
+            }
+        }
+
+        .card img {
+            width: 100%; /* Las imágenes ocuparán todo el ancho de la tarjeta */
+            border-radius: 10px;
+            margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+            transition: transform 0.3s ease; /* Para el efecto de acercamiento */
+        }
+
+        .card img:hover {
+            transform: scale(1.1); /* Efecto de acercamiento */
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+        }
+
+        .hamburger .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #333;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                gap: 20px;
+            }
+
+            .mobile-menu.active {
+                right: 0;
+            }
+
+            .mobile-menu a {
+                font-size: 1.5em;
+                padding: 10px 20px;
+                border-radius: 30px;
+                transition: background 0.5s ease, color 0.5s ease;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menú de Navegación -->
+    <nav class="navbar">
+        <div class="logo" data-target="inicio">Inicio</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" data-target="inicio">Inicio</a></li>
+            <li><a href="#" data-target="galeria">Galería de Proyectos</a></li>
+            <li><a href="#" data-target="servicios">Servicios</a></li>
+            <li><a href="#" data-target="sobre-mi">Sobre Mí</a></li>
+            <li><a href="#" data-target="contacto">Contacto</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <!-- Sección de Inicio con enfoque en UX/UI -->
+    <section class="inicio" id="inicio">
+        <h1>UX/UI</h1>
+        <p>Explora los principales conceptos de experiencia de usuario y diseño de interfaces, aplicados en este proyecto para crear una navegación intuitiva, visualmente atractiva y accesible.</p>
+        
+        <div class="cards-container">
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Yi3Ff5EY0QiKaMLKb0q6zuPlAdcFDq6Row&s" alt="Diseño Responsivo">
+                <h2>Diseño Responsivo</h2>
+                <p>El diseño se adapta a cualquier dispositivo, garantizando una experiencia consistente en móviles, tablets y escritorios.</p>
+            </div>
+            <div class="card">
+                <img src="https://blog.ida.cl/wp-content/uploads/sites/5/2020/11/ida-DiaUsabilidad-blog-1024x735.png" alt="Usabilidad">
+                <h2>Usabilidad</h2>
+                <p>Principios de usabilidad aplicados para mejorar la navegación y facilitar el acceso a las distintas secciones del sitio.</p>
+            </div>
+            <div class="card">
+                <img src="https://media.licdn.com/dms/image/v2/D4D12AQEayPp-Z3t_pA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1700581995526?e=2147483647&v=beta&t=6eJVNG0fFeJ0_IIijB7_Y4ZGzlksFRVLzjRXS-81-lw" alt="Interactividad">
+                <h2>Interactividad</h2>
+                <p>Elementos interactivos que mejoran la experiencia del usuario, haciendo que la navegación sea más dinámica y atractiva.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Manejo del menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Cambio de contenido al hacer clic en enlaces
+        const links = document.querySelectorAll('.nav-links a, .mobile-menu a');
+        const sections = document.querySelectorAll('section');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+
+                sections.forEach(section => {
+                    section.style.display = 'none'; // Ocultar todas las secciones
+                });
+
+                targetSection.style.display = 'block'; // Mostrar la sección seleccionada
+                window.scrollTo(0, 0); // Ir a la parte superior de la página
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+

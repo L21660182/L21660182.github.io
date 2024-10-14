@@ -9,15 +9,41 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding-top: 50px;
+            transition: background-color 0.5s; /* Transición suave para el cambio de color */
         }
         #cambiarColor {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
         }
     </style>
 </head>
 <body>
+
+    <!-- Botón de regreso con enlace a la sección de la galería de proyectos -->
+    <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
 
     <h1>Haz clic para cambiar el color de fondo</h1>
     <button id="cambiarColor">Cambiar color de fondo</button>
@@ -28,14 +54,8 @@
 
         // Función que cambia el color de fondo al hacer clic
         document.getElementById("cambiarColor").onclick = function() {
-            // Generar un índice aleatorio
-            let colorSeleccionado = "";
-
-            // Ciclo for para iterar sobre el arreglo de colores
-            for (let i = 0; i < colores.length; i++) {
-                // Selecciona un color aleatorio del arreglo
-                colorSeleccionado = colores[Math.floor(Math.random() * colores.length)];
-            }
+            // Selecciona un color aleatorio del arreglo
+            const colorSeleccionado = colores[Math.floor(Math.random() * colores.length)];
 
             // Cambiar el color de fondo del cuerpo del documento
             document.body.style.backgroundColor = colorSeleccionado;

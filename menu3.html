@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Proyectos</title>
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Menú de Navegación */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: #fff;
+        }
+
+        /* Efecto de selección */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1100;
+        }
+
+        .hamburger .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            /* Menú Desplegable para Móviles */
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #333;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                gap: 20px;
+            }
+
+            .mobile-menu.active {
+                right: 0;
+            }
+
+            .mobile-menu a {
+                font-size: 1.5em;
+                padding: 10px 20px;
+                border-radius: 30px;
+                transition: background 0.5s ease, color 0.5s ease;
+            }
+
+            .mobile-menu a.active,
+            .mobile-menu a:hover {
+                background: linear-gradient(45deg, #ff6b6b, #f06595);
+                color: #fff;
+            }
+
+            .mobile-menu a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: #fff;
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .mobile-menu a.active::after,
+            .mobile-menu a:hover::after {
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        /* Animaciones de contenido */
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Main Content */
+        main {
+            padding: 80px 20px 20px 20px; /* Padding-top para evitar solapamiento con navbar fija */
+            transition: margin-left 0.5s ease;
+        }
+
+        /* Galería de Proyectos */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            width: 200px;
+            text-align: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .gallery-item h3 {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de Navegación -->
+    <nav class="navbar">
+        <div class="logo" data-target="galeria">Galería de Proyectos</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="Inicio.html" data-target="inicio">Inicio</a></li>
+            <li><a href="menu3.html" data-target="galeria">Galería de Proyectos</a></li>
+            <li><a href="Servicios.html" data-target="servicios">Servicios</a></li>
+            <li><a href="Sobre mi.html" data-target="sobre-mi">Sobre Mi</a></li>
+            <li><a href="Contacto.html" data-target="contacto">Contacto</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+
+    <!-- Contenido Principal -->
+    <main>
+        <!-- Secciones -->
+
+<!-- Galería de Proyectos -->
+<section id="galeria" class="section">
+    <h1>Galería de Proyectos</h1>
+    <div class="gallery">
+        <div class="gallery-item">
+            <a href="contador de palabras.html"> <!-- Redirección al hacer clic -->
+                <img src="https://i.pinimg.com/originals/44/39/20/4439209107435d9b4f827fc052467550.png" alt="Contador de palabras">
+            </a>
+            <h3>Contador de palabras</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="convertidor de unidades.html"> <!-- Redirección al hacer clic -->
+                <img src="https://lh3.googleusercontent.com/proxy/lfTZbgxnz6WhuEW3jqGnev0jMFdOwyYEoKjQdZJnOlUXOFZKgvTBaW6TWQDoxRNi-ov87cGeVINjTcEkt4Tx3b65hIvfmQU0eoSSpmLIodBlzJwFq5uFObow5yWoVrgRRN0TB_vz40ehyzzSh3_CArU" alt="Convertidor de Unidades">
+            </a>
+            <h3>Convertidor de Unidades</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="convertidor.html"> <!-- Redirección al hacer clic -->
+                <img src="https://img.freepik.com/vector-premium/ilustracion-icono-dibujos-animados-temporizador-cronometro_367645-139.jpg" alt="convertidor">
+            </a>
+            <h3>Cronómetro</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="calculadora.html"> <!-- Redirección al hacer clic -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV1KoYAMCdgKQUu5InfYU-j_fJ-53fkf0VeQ&s" alt="Calculadora">
+            </a>
+            <h3>Calculadora</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="galerial.html"> <!-- Redirección al hacer clic -->
+                <img src="https://cdn-icons-png.freepik.com/512/336/336035.png" alt="Galería de Imágenes">
+            </a>
+            <h3>Galería de Imágenes</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="piedra o papel.html"> <!-- Redirección al hacer clic -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGIO-JtOOc5xudNt9bzNXWIARwXtIYIdK6cQ&s" alt="Piedra, Papel o Tijeras">
+            </a>
+            <h3>Piedra, Papel o Tijeras</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="to-do list.html"> <!-- Redirección al hacer clic -->
+                <img src="https://img.freepik.com/vector-premium/lapiz-hoja-papel-lista-tareas-pendientes-ilustracion-3d-dibujo-dibujos-animados-nota-casillas-verificacion-o-tareas-estilo-3d-sobre-fondo-blanco-gestion-tiempo-concepto-negocio_778687-725.jpg" alt="To-do list">
+            </a>
+            <h3>To-do list</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="temporizador.html"> <!-- Redirección al hacer clic -->
+                <img src="https://previews.123rf.com/images/yupiramos/yupiramos1801/yupiramos180120412/94044335-cron%C3%B3metro-temporizador-de-dibujos-animados-ilustraci%C3%B3n-vectorial.jpg" alt="Temporizador">
+            </a>
+            <h3>Temporizador</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="cambio.html"> <!-- Redirección al hacer clic -->
+                <img src="https://png.pngtree.com/png-vector/20190804/ourmid/pngtree-chang-chart-data-exchange-money-paper-flat-color-icon-png-image_1656425.jpg" alt="Cambio de imagen">
+            </a>
+            <h3>Cambio de imagen</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="color.html"> <!-- Redirección al hacer clic -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2nsU8eA25crWrjM1Kt1eGpxAnsGGr0gBEjQ&s" alt="Haz clic para cambiar el color de fondo">
+            </a>
+            <h3>Cambiar color de fondo</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="formulario.html"> <!-- Redirección al hacer clic -->
+                <img src="https://img.freepik.com/vector-gratis/plantilla-formulario-registro-diseno-plano_23-2147971971.jpg" alt="Formulario">
+            </a>
+            <h3>Formulario</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="Mostrar mensaje.html"> <!-- Redirección al hacer clic -->
+                <img src="https://img.freepik.com/vector-premium/mensaje-chat-telefono-inteligente-ilustracion-dibujos-animados-planos-sms-burbujas-pantalla-telefono-movil-sobre-fondo-blanco-hombre-hablando-celular-mujer_185004-110.jpg" alt="Mostrar mensaje">
+            </a>
+            <h3>Mostrar mensaje</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="suma de dos numeros.html"> <!-- Redirección al hacer clic -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0C1BsbawkrXk7b-B1pzZKRZY8XeSj2ssxXg&s" alt="Suma de dos números">
+            </a>
+            <h3>Suma de dos números</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="tabla.html"> <!-- Redirección al hacer clic -->
+                <img src="https://www.colombiahosting.com.co/blog/wp-content/uploads/2023/08/como-usar-buscador-google.png" alt="Filtro de Búsqueda en una Tabla">
+            </a>
+            <h3>Filtro de Búsqueda en una Tabla</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="galeria con api.html"> <!-- Redirección al hacer clic -->
+                <img src="https://i.pinimg.com/736x/01/b4/ff/01b4ff58c0895b8df06e66fa6241499e.jpg" alt="Galería con API">
+            </a>
+            <h3>Galería con API</h3>
+        </div>
+        <div class="gallery-item">
+            <a href="Guardar notas.html"> <!-- Redirección al hacer clic -->
+                <img src="https://png.pngtree.com/png-vector/20190428/ourmid/pngtree-vector-notes-icon-png-image_992313.jpg" alt="Guardar notas">
+            </a>
+            <h3>Guardar notas</h3>
+        </div>
+    </div>
+</section>
+
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .gallery-item {
+        text-align: center;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+    }
+
+    .gallery-item img {
+        max-width: 100%;
+        transition: transform 0.3s ease; /* Efecto suave */
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.1); /* Acercamiento */
+    }
+
+    .gallery-item a {
+        display: inline-block;
+    }
+
+    h3 {
+        margin-top: 10px;
+        font-size: 1.2em;
+        color: #333;
+    }
+</style>
+
+    <script>
+        // Toggle del menú en dispositivos móviles
+        const hamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Manejo de la navegación
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('.section');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.getElementById(link.getAttribute('data-target'));
+                sections.forEach(section => section.classList.remove('active'));
+                target.classList.add('active');
+            });
+        });
+    </script>
+    <!-- Script para el menú tipo hamburguesa -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Redirección en el menú
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = link.getAttribute('href');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

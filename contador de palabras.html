@@ -24,6 +24,7 @@
             width: 100%;
             text-align: center;
             border: 3px solid #ff66b2;
+            position: relative; /* Para ubicar el botón de regreso */
         }
         h1 {
             margin-bottom: 20px;
@@ -75,11 +76,32 @@
                 transform: scale(1);
             }
         }
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ff33aa;
+            transition: color 0.3s ease;
+        }
+        .back-button:hover {
+            color: #ff66b2;
+        }
+        .back-button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Botón de regreso -->
+        <button class="back-button" onclick="window.location.href='menu3.html'">&#8592;</button>
+
         <h1>Contador de Palabras y Caracteres</h1>
         <textarea id="texto" placeholder="Escribe aquí tu texto..."></textarea>
         <div class="contador">

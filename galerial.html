@@ -15,6 +15,7 @@
             margin: 0;
             padding: 20px;
             color: #333;
+            position: relative; /* Para posicionar el botón de regreso */
         }
 
         h1 {
@@ -111,9 +112,33 @@
             from {transform: scale(0.7);}
             to {transform: scale(1);}
         }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Botón de regreso con enlace a la galería de proyectos -->
+    <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
 
     <h1>Galería de Imágenes</h1>
 

@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mostrar Mensaje</title>
+    <style>
+        /* Estilos para centrar el contenido en la pantalla */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Botón de regreso con enlace a la sección de la galería de proyectos -->
+    <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
+
     <!-- Etiqueta con ID 'soyelid' para mostrar el mensaje -->
     <p id="soyelid"></p>
 

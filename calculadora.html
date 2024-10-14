@@ -23,6 +23,7 @@
             width: 340px;
             padding: 30px;
             transition: transform 0.3s;
+            position: relative; /* Para ubicar el botón de regreso */
         }
 
         .calculator:hover {
@@ -98,11 +99,35 @@
         .buttons .clear:hover {
             background-color: #e53935;
         }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="calculator">
+        <!-- Botón de regreso con enlace a la galería de proyectos -->
+        <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
+        
         <div class="display" id="display">0</div>
         <div class="buttons">
             <button class="clear" onclick="clearDisplay()">C</button>

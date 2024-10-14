@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <script>
+        // Inicializamos la variable contador en 0
+        let contador = 0;
+
+        // Función que aumenta el contador
+        function subirparriba() {
+            contador++;  // Incrementamos el contador
+            document.getElementById("contador").textContent = contador;  // Actualizamos el valor en el DOM
+        }
+
+        // Función que disminuye el contador
+        function bajarpabajo() {
+            contador--;  // Decrementamos el contador
+            document.getElementById("contador").textContent = contador;  // Actualizamos el valor en el DOM
+        }
+    </script>
+</head>
+<body>
+    <h1>Contador</h1>
+
+    <!-- Mostramos el valor actual del contador -->
+    <p id="contador">0</p>
+
+    <!-- Botón para aumentar el contador, llama a la función 'subirparriba' -->
+    <button onclick="subirparriba()">subirparriba</button>
+
+    <!-- Botón para disminuir el contador, llama a la función 'bajarpabajo' -->
+    <button onclick="bajarpabajo()">bajarpabajo</button>
+</body>
+</html>

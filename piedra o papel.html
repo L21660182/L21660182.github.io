@@ -10,6 +10,7 @@
             text-align: center;
             background-color: #ffefd5;
             padding: 50px;
+            position: relative; /* Para posicionar el botón de regreso */
         }
         h1 {
             color: #333;
@@ -56,9 +57,33 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(10deg); }
         }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Botón de regreso con enlace a la sección de la galería de proyectos -->
+    <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
+
     <h1>¡Piedra, Papel o Tijeras! 🎮</h1>
     <div class="opciones">
         <button onclick="jugar('piedra')">

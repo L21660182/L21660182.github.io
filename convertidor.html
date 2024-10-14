@@ -22,6 +22,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            position: relative; /* Para ubicar el botón de regreso */
             animation: fadeIn 1s ease;
         }
         h1 {
@@ -89,6 +90,25 @@
             animation-fill-mode: both;
         }
 
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .back-button:hover {
+            color: #0056b3;
+        }
+        .back-button:focus {
+            outline: none;
+        }
+
         /* Animaciones */
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
@@ -107,6 +127,9 @@
 </head>
 <body>
     <div class="container">
+        <!-- Botón de regreso con enlace a la sección de galería de proyectos -->
+        <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
+
         <h1>Convertidor de Unidades</h1>
         <label for="valor">Valor a convertir:</label>
         <input type="number" id="valor" placeholder="Ingresa el valor">
@@ -167,5 +190,6 @@
     </script>
 </body>
 </html>
+
 
 

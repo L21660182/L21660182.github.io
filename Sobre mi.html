@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mí</title>
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Desplazamiento suave */
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Menú de Navegación */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: #fff;
+        }
+
+        /* Efecto de selección */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1100;
+        }
+
+        .hamburger .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            /* Menú Desplegable para Móviles */
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: #333;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                gap: 20px;
+            }
+
+            .mobile-menu.active {
+                right: 0;
+            }
+
+            .mobile-menu a {
+                font-size: 1.5em;
+                padding: 10px 20px;
+                border-radius: 30px;
+                transition: background 0.5s ease, color 0.5s ease;
+            }
+
+            .mobile-menu a.active,
+            .mobile-menu a:hover {
+                background: linear-gradient(45deg, #ff6b6b, #f06595);
+                color: #fff;
+            }
+
+            .mobile-menu a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: #fff;
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .mobile-menu a.active::after,
+            .mobile-menu a:hover::after {
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        /* Animaciones de contenido */
+        .section {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 80px 20px 20px 20px; /* Padding-top para evitar solapamiento con navbar fija */
+            transition: margin-left 0.5s ease;
+        }
+
+        /* Sobre Mí */
+        .sobre-mi-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .sobre-mi-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sobre-mi-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .sobre-mi-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .sobre-mi-card h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        .sobre-mi-card p {
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de Navegación -->
+    <nav class="navbar">
+        <div class="logo">Sobre Mí</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="Inicio.html">Inicio</a></li>
+            <li><a href="menu3.html">Galería de Proyectos</a></li>
+            <li><a href="Servicios.html"·>Servicios</a></li>
+            <li><a href="#Sobre mi.html">Sobre Mí</a></li>
+            <li><a href="Contacto.html">Contacto</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+
+        <section id="sobre-mi" class="section">
+            <h1>Sobre Mí</h1>
+            <div class="sobre-mi-container">
+                <div class="sobre-mi-card">
+                    <img src="https://png.pngtree.com/png-clipart/20210905/original/pngtree-computer-working-girl-png-image_6700679.jpg" alt="Foto de perfil" class="sobre-mi-img">
+                    <h2>Georgina Alejandra Ojeda Torres</h2>
+                    <p>A continuación, se destacan algunos de los proyectos que he desarrollado:</p>
+                    <ul>
+                        <li><strong>Contador de Palabras:</strong> Una herramienta interactiva diseñada para contar palabras y caracteres en tiempo real.</li>
+                        <li><strong>Convertidor de Unidades:</strong> Un proyecto que permite convertir entre diferentes unidades de medida.</li>
+                        <li><strong>Calculadora:</strong> Una calculadora digital diseñada para ser intuitiva y funcional.</li>
+                        <li><strong>Piedra, Papel o Tijeras:</strong> Un juego interactivo con una interfaz minimalista.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Toggle del menú en dispositivos móviles
+        const hamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Manejo de la navegación
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('.section');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                target.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+                sections.forEach(section => section.classList.remove('active'));
+                target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
