@@ -38,6 +38,8 @@
             font-size: 1.8em;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
+            color: #fff;
         }
 
         /* Menú de Navegación */
@@ -180,6 +182,41 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: #333;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.5s ease;
+            z-index: 999;
+            gap: 20px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: #fff;
+        }
+
         /* Media Queries para Responsividad */
         @media (max-width: 768px) {
             .nav-links {
@@ -192,29 +229,6 @@
 
             .mobile-menu {
                 display: flex;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                height: 100vh;
-                background-color: #333;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.5s ease;
-                z-index: 1000;
-                gap: 20px;
-            }
-
-            .mobile-menu.active {
-                right: 0;
-            }
-
-            .mobile-menu a {
-                font-size: 1.5em;
-                padding: 10px 20px;
-                border-radius: 30px;
-                transition: background 0.5s ease, color 0.5s ease;
             }
         }
     </style>
@@ -223,19 +237,27 @@
 <body>
     <!-- Menú de Navegación -->
     <nav class="navbar">
-        <div class="logo" data-target="inicio">Inicio</div>
+        <a href="Inicio.html" class="logo">Inicio</a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="Inicio.html" data-target="inicio">Inicio</a></li>
-            <li><a href="menu3.html" data-target="galeria">Galería de Proyectos</a></li>
-            <li><a href="Servicios.html" data-target="servicios">Servicios</a></li>
-            <li><a href="Sobre mi.html" data-target="sobre-mi">Sobre Mí</a></li>
-            <li><a href="Contacto.html" data-target="contacto">Contacto</a></li>
+            <li><a href="Inicio.html">Inicio</a></li>
+            <li><a href="menu3.html">Galería de Proyectos</a></li>
+            <li><a href="Servicios.html">Servicios</a></li>
+            <li><a href="Sobre mi.html">Sobre Mí</a></li>
+            <li><a href="Contacto.html">Contacto</a></li>
         </ul>
         <div class="hamburger" id="hamburger">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
+        <!-- Menú Móvil -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="Inicio.html">Inicio</a></li>
+            <li><a href="menu3.html">Galería de Proyectos</a></li>
+            <li><a href="Servicios.html">Servicios</a></li>
+            <li><a href="Sobre mi.html">Sobre Mí</a></li>
+            <li><a href="Contacto.html">Contacto</a></li>
+        </ul>
     </nav>
 
     <!-- Sección de Inicio con enfoque en UX/UI -->
@@ -265,33 +287,22 @@
     <script>
         // Manejo del menú hamburguesa
         const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenu = document.getElementById('mobileMenu');
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         });
 
-        // Cambio de contenido al hacer clic en enlaces
-        const links = document.querySelectorAll('.nav-links a, .mobile-menu a');
-        const sections = document.querySelectorAll('section');
-
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('data-target');
-                const targetSection = document.getElementById(targetId);
-
-                sections.forEach(section => {
-                    section.style.display = 'none'; // Ocultar todas las secciones
-                });
-
-                targetSection.style.display = 'block'; // Mostrar la sección seleccionada
-                window.scrollTo(0, 0); // Ir a la parte superior de la página
+        // Opcional: Cerrar el menú móvil al hacer clic en un enlace
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
             });
         });
     </script>
 </body>
 
 </html>
-
